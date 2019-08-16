@@ -16,5 +16,6 @@ spl_autoload_register(function ( $className ) {
 
 // includes
 require_once( ROOTPATH . '/config.php' );
-require_once( ROOTPATH . '/inc/document.php' );
 
+$page = new PageData();
+$page->renderTemplate();
