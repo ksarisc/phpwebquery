@@ -1,5 +1,4 @@
 <?php
-//require_once( ROOTPATH . '/inc/config.php' );
 class DataStructure
 {
     private $lastError;
@@ -28,12 +27,13 @@ class DataStructure
         {
             $type = odbc_result( $rs, "TABLE_TYPE");
             // preg_match ?
-            if (("TABLE" === $type || "VIEW" === $type))
+            if ("TABLE" === $type || "VIEW" === $type)
             {
                 $name = odbc_result($rs, "TABLE_NAME");
+                // this check should be more generic
                 if (strncasecmp( $name, "SYS", 3 ) !== 0)
                 {
-                    $schema = odbc_result($rs, "TABLE_SCHEM");
+                    $schema = odbc_result($rs, "TABLE_SCHEM"); //A
                     //$tbls[] = $name;
                     yield '"' . $schema . '"."' . $name . '"';
                 }
@@ -59,7 +59,10 @@ class DataStructure
         } else {
             $table  = str_replace( '"', '', $tableName );
         }
-        $rs = odbc_columns ( $conn, ODBC_DBASE, $schema, $table ); //, string $column_name );
+        // what about using SELECT * FROM $tableName WHERE 0 = 1
+        // and caching result instead?
+        $rs = odbc_columns ( $conn, ODBC_DBASE, $schema, $table );
+        //, string $column_name );
         if ( $rs === false ) {
             $this->lastError = 'Table (' . $tableName . ') NOT Found!';
             return false;
