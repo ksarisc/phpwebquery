@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<?php
+global $page;
+?><!DOCTYPE html>
 <html>
 <head>
     <title><?php $page->title(); ?></title>

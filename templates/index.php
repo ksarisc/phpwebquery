@@ -8,7 +8,7 @@ function pageBody( $page )
     <ul>
     <?php
     $data = new DataStructure();
-    foreach ($data.getTables() as $table) {
+    foreach ($data->getTables() as $table) {
         echo '<li onclick="selectTable(this);">',
             htmlspecialchars( $table ),
             '</li>';
